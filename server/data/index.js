@@ -13,12 +13,23 @@ const mongoose = require('mongoose');
   }
 })();
 
-const Authors = require('./models/Authors.js');
-const Books = require('./models/Books.js');
 const Users = require('./models/Users.js');
+const Answers = require('./models/Answers.js');
+const Order_items = require('./models/Order_items.js');
+const Orders = require('./models/Orders.js');
+const Products = require('./models/Products.js');
+const Providers = require('./models/Providers.js');
+const Questions = require('./models/Questions.js');
+const Reviews = require('./models/Reviews.js');
+
 
 module.exports = {
-  Authors,
-  Books,
-  Users
+  Answers,
+  Order_items,
+  Users,
+  Orders,
+  Products,
+  Providers,
+  Questions,
+  Reviews
 }

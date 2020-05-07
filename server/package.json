@@ -1,26 +1,18 @@
 {
-  "name": "lab-6",
+  "name": "Proiect",
   "version": "1.0.0",
-  "description": "Laboratorul 6 de Progoramare Web",
+  "description": "proiect PW",
   "main": "start.js",
   "scripts": {
     "start": "nodemon -r dotenv/config start.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/programareweb2020/pwebalexandruhogea.git"
   },
   "keywords": [
     "nodejs",
     "mongodb",
     "mongoose"
   ],
-  "author": "Alexandru Hogea",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/programareweb2020/pwebalexandruhogea/issues"
-  },
-  "homepage": "https://gitlab.com/programareweb2020/pwebalexandruhogea#readme",
+  "author": "Belei Andrei",
+
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

@@ -40,6 +40,12 @@ const validateFields = (fields) => {
                     throw new ServerError(`Campul ${fieldName} trebuie sa fie jwt`, 400);
                 }
                 break;
+            case 'email':
+                if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValue)) {
+                    throw new ServerError(`Adresa de email nu este valida`, 400);
+                }
+                break;
+
         }
     }
 }
