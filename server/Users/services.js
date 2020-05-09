@@ -15,6 +15,10 @@ const {
     compare
 } = require('../security/Password');
 
+const {
+    sendEmail
+} = require('../mailer/mailerService');
+
 const add = async (name, username, password, email) => {
     const hashedPassword = await hash(password);
     // TODO remove
@@ -25,8 +29,11 @@ const add = async (name, username, password, email) => {
         password: hashedPassword,
         email,
         confirmed: false,
+        gdpr: false,
         role
     });
+    sendEmail(email, username);
+
     await user.save();
 };
 
@@ -36,13 +43,18 @@ const addElevated = async (username, password, role) => {
         username,
         password: hashedPassword,
         role,
-        confirmed: true
+        confirmed: true,
+        gdpr: true
     });
     await user.save();
 }
 
-const confirmed = async (email) => {
-    await findOneAndUpdate({ "email": email }, {$set: {"confirmed": true} });
+const confirmed = async (username) => {
+    await Users.findOneAndUpdate({ "username": username }, {$set: {"confirmed": true} });
+}
+
+const gdpr = async(username) => {
+    await Users.findOneAndUpdate({ "username": username}, {$set: {"gdpr": true} });
 }
 
 const updatePassword = async (username, oldPassword, newPassword) => {
@@ -52,10 +64,15 @@ const updatePassword = async (username, oldPassword, newPassword) => {
         throw new ServerError(`Utilizatorul inregistrat cu ${username} nu exista!`, 404);
     }
     
-    if (await compare(password, user.password)) {
-        await Users.findOneAndUpdate(user.id, {
-            password: newPassword
-        })
+    const hashedNew = await hash(newPassword)
+    if (await compare(oldPassword, user.password)) {
+        await Users.findOneAndUpdate({ "username": username}, 
+            { $set:
+                {
+                    "password": hashedNew
+                }
+            }
+        )
     } 
     throw new ServerError("Parola nu este buna!", 404);
 
@@ -63,22 +80,43 @@ const updatePassword = async (username, oldPassword, newPassword) => {
 
 const authenticate = async (username, password) => {
 
-    const user = await Users.findOne({ username });
+    let user;
+    if (username.includes("@")) {
+        user = await Users.findOne( {"email": username});
+    } else {
+        user = await Users.findOne({ username });
+    }
+    
     if (user === null) {
         throw new ServerError(`Utilizatorul inregistrat cu ${username} nu exista!`, 404);
     }
+
+    if (user.role === 'user' && !user.confirmed){
+        throw new ServerError('Please confirm your email address before logging in', 400);
+    }
     
     if (await compare(password, user.password)) {
-        await generateToken({
+        const token =  await generateToken({
             userId: user._id,
             userRole: user.role
         });
-    } 
-    throw new ServerError("Combinatia de username si parola nu este buna!", 404);
+        return {
+            token: token,
+            role: user.role,
+            username: user.username,
+            gdpr: user.gdpr
+        }
+
+    } else {
+        throw new ServerError("Combinatia de username si parola nu este buna!", 404);
+    }
 };
 
 module.exports = {
     add,
     addElevated,
-    authenticate
+    authenticate,
+    confirmed,
+    updatePassword,
+    gdpr
 }

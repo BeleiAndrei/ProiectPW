@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+global.serverUrl = "http://localhost:3001/api/v1/";
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

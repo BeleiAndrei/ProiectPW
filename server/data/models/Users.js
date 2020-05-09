@@ -23,6 +23,10 @@ const UserSchema = new Schema({
         type: Boolean,
         required: true
     },
+    gdpr: {
+        type: Boolean,
+        required: true
+    },
     role: {
         type: String,
         required: true,
