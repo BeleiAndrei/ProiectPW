@@ -15,35 +15,21 @@ const {
 
 const router = express.Router();
 
-// router.post('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
-//     const {
-//         firstName,
-//         lastName
-//     } = req.body;
 
-//     // validare de campuri
-//     try {
+router.get('/', async(req, res, next) => {
 
-//         const fieldsToBeValidated = {
-//             firstName: {
-//                 value: firstName,
-//                 type: 'alpha'
-//             },
-//             lastName: {
-//                 value: lastName,
-//                 type: 'alpha'
-//             }
-//         };
+});
 
-//         validateFields(fieldsToBeValidated);
+router.post('/', async(req, res, next) => {
 
-//         await AuthorsService.add(firstName, lastName);
+});
 
-//         res.status(201).end();
-//     } catch (err) {
-//         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
-//         next(err);
-//     }
-// });
+router.put('/', async(req, res, next) => {
+
+});
+
+router.delete('/', async(req, res, next) => {
+
+});
 
 module.exports = router;

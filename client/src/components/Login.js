@@ -29,10 +29,20 @@ export default function Login() {
   const [redirectLogin, setRedirectLogin] = useState(false);
 
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return true;
   }
 
   function handleSubmit(event) {
+    if (email.length === 0) {
+      setErrorMessage("Please enter an username or email address");
+      return false;
+    }
+
+    if (password.length === 0) {
+      setErrorMessage("Please enter a password");
+      return false;
+    }
+
     axios.post(global.serverUrl + "users/login",
         {
             password: password,
@@ -43,6 +53,12 @@ export default function Login() {
       localStorage.setItem('role', result.data.role);
       localStorage.setItem('username', result.data.username);
       localStorage.setItem('gdpr', result.data.gdpr)
+      console.log(localStorage.getItem("gdpr") === "false");
+      localStorage.setItem('authToken', {
+        'headers': {
+            'Authorization': `Bearer ${result.data.token}`
+        }
+    })
       setRedirectLogin(true);
     })
     .catch((error) => {
@@ -57,7 +73,6 @@ export default function Login() {
   }
 
   if (redirectLogin) {
-    setRedirectLogin(false);
     return (<Redirect to='/dashboard'/>);
   }
 

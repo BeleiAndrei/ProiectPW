@@ -1,0 +1,86 @@
+.Dashboard {
+    width: 80%;
+    height: 90vh;
+    margin: auto;
+    .SideBar {
+        width: 20%;
+        height: 70%;
+        display: inline-block;
+        border: 3px solid salmon;
+        vertical-align: top;
+
+    }
+    .AllProducts {
+        display: inline-block;
+        width: 70%;
+        height: 80%;
+        border: 1px solid blanchedalmond;
+        overflow-x: auto;
+        overflow-y: scroll;
+        // background-color: sandybrown;
+        .card{
+            
+            // max-width: 150px;
+            width: 33%;
+            display: table-cell;
+            .card-body {
+                width: 100%;
+            }
+        }
+    }
+}
+p {
+    margin-bottom: 0;
+}
+
+.CardWrapper{
+    display: table-cell;
+    position: relative;
+    flex-direction: column;
+    padding:0;
+    width: 33%;
+    height: auto;
+    .card {
+        min-height: auto;
+        .card-body {
+            min-height: auto;
+        }
+    }
+}
+
+.ProductView {
+    width: 70% !important;
+    .viewdiv {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        right: 40px;
+        bottom: 40px;
+        border: 1px solid rgb(204, 204, 204);
+        background: rgb(255, 255, 255);
+        overflow: auto;
+        border-radius: 4px;
+        outline: none;
+        padding: 20px;
+    }
+}
+
+
+.card-body {
+    .card-text {
+        display: block;
+        margin-top: 5px;
+    }
+    .ButtonWrapper {
+        padding-top: 10px;
+        margin: 10px;
+        display: block;
+        position:absolute;
+        bottom:0;
+    }
+    button {
+        width: 100px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+}

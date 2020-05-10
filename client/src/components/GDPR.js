@@ -24,9 +24,10 @@ export default function GDPR() {
     }
 
     return(
-        <div className="GDPR">
+        <div className="GDPR" style={{width:"70% !important"}}>
             <Modal
-                isOpen={!accepted}
+                
+                isOpen={localStorage.getItem('gdpr') === "false"}
             > 
            <h1>Privacy Policy for Proiect PW</h1>
 

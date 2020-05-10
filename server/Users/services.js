@@ -32,7 +32,7 @@ const add = async (name, username, password, email) => {
         gdpr: false,
         role
     });
-    sendEmail(email, username);
+    sendEmail(email, 'Click the following link to confirm this email.\nhttp://localhost:3001/api/v1/users/confirm?username=' + username);
 
     await user.save();
 };
@@ -73,8 +73,9 @@ const updatePassword = async (username, oldPassword, newPassword) => {
                 }
             }
         )
-    } 
-    throw new ServerError("Parola nu este buna!", 404);
+    } else {
+        throw new ServerError("Parola nu este buna!", 400);
+    }
 
 }
 
@@ -86,7 +87,7 @@ const authenticate = async (username, password) => {
     } else {
         user = await Users.findOne({ username });
     }
-    
+
     if (user === null) {
         throw new ServerError(`Utilizatorul inregistrat cu ${username} nu exista!`, 404);
     }
@@ -112,11 +113,16 @@ const authenticate = async (username, password) => {
     }
 };
 
+const deleteuser = async (username) => {
+    await Users.findOneAndDelete({ 'username' : username});
+};
+
 module.exports = {
     add,
     addElevated,
     authenticate,
     confirmed,
     updatePassword,
-    gdpr
+    gdpr,
+    deleteuser
 }

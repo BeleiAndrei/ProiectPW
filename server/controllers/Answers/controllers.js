@@ -1,6 +1,6 @@
 const express = require('express');
 
-const AuthorsService = require('./services.js');
+const AnswersService = require('./services.js');
 
 const {
     validateFields
@@ -15,35 +15,24 @@ const {
 
 const router = express.Router();
 
-// router.post('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
-//     const {
-//         firstName,
-//         lastName
-//     } = req.body;
+router.post('/', authorizeAndExtractToken, authorizeRoles('support'), async(req, res, next) => {
+    const {
+        username,
+        question_id,
+        message
+    } = req.body;
 
-//     // validare de campuri
-//     try {
+    console.log(req.body);
 
-//         const fieldsToBeValidated = {
-//             firstName: {
-//                 value: firstName,
-//                 type: 'alpha'
-//             },
-//             lastName: {
-//                 value: lastName,
-//                 type: 'alpha'
-//             }
-//         };
+    try {
+        await AnswersService.post(question_id, username, message);
 
-//         validateFields(fieldsToBeValidated);
+        res.status(200).end();
+    } catch(err) {
+        next(err);
+    }
+});
 
-//         await AuthorsService.add(firstName, lastName);
 
-//         res.status(201).end();
-//     } catch (err) {
-//         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
-//         next(err);
-//     }
-// });
 
 module.exports = router;

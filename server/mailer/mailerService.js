@@ -11,16 +11,16 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-const sendEmail = async (to, username) =>  {
+const sendEmail = async (to, text) =>  {
     var mailOptions = {
         from: 'testingprogram28@gmail.com',
         to: to,
         subject: 'Sending Email using Node.js',
-        text: 'Click the following link to confirm this email.\nhttp://localhost:3001/api/v1/users/confirm?username=' + username
+        text: text
       };
 
 
-      console.log("wat");
+      console.log("to");
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);

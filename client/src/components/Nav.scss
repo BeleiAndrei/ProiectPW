@@ -2,7 +2,45 @@
     height: 40px;
     background-color: lightskyblue;
     width: 100%;
-    span {
+    span:nth-of-type(2n) {
+        margin-top: 2px;
+        display: inline-block;
         float: right;
     }
+    span:nth-of-type(2n + 1) {
+        font-size: 25px;
+    }
+    div {
+        margin-left: 5px;
+        display: inline-block;
+        float: right;
+        button {
+            border: 0px;
+            padding: 0px;
+            color: inherit !important;
+            background-color: inherit !important;
+            border-color: lightskyblue !important;
+            box-shadow: inherit !important;
+            &:hover{
+                color: lightskyblue;
+            }
+        }
+    }
+
 }
+
+body {
+    width: 100%;
+}
+
+.ReactModal__Content {
+    width: 300px;
+    margin: auto;
+    button {
+        margin-top: 0px !important;
+        margin-left: 3%;
+        display: inline-block;
+        width: 30%;
+    }
+}
+

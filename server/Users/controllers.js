@@ -18,7 +18,6 @@ const router = express.Router();
 
 router.get('/confirm', async(req, res, next) => {
     const username = req.query.username;
-    console.log(username);
 
     try {
         await UsersService.confirmed(username);
@@ -98,7 +97,7 @@ router.post('/registerElevated', authorizeAndExtractToken, authorizeRoles('admin
     }
 });
 
-router.post('/updatePassword', async(req, res, next) => {
+router.put('/updatePassword', async(req, res, next) => {
     const {
         username,
         oldPassword,
@@ -116,7 +115,7 @@ router.post('/updatePassword', async(req, res, next) => {
         validateFields(fieldsToBeValidated);
         await UsersService.updatePassword(username, oldPassword, newPassword);
         
-        res.status(204);
+        res.status(204).end();
     } catch (err) {
         next(err);
     }
@@ -131,10 +130,6 @@ router.post('/login', async (req, res, next) => {
 
   try {
     const fieldsToBeValidated = {
-        username: {
-            value: username,
-            type: 'alpha'
-        },
         password: {
             value: password,
             type: 'ascii'
@@ -163,4 +158,15 @@ router.put('/gdpr', async (req, res, next) => {
     }
 
 });
+
+
+router.delete('/', async (req, res, next) => {
+    const username = req.body.username
+    try {
+        await UsersService.deleteuser(username);
+        res.status(204).end();
+    } catch (err) {
+        next(err);
+    }
+})
 module.exports = router;

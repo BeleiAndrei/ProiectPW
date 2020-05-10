@@ -1,6 +1,6 @@
 const express = require('express');
 
-const AuthorsService = require('./services.js');
+const QuestionsService = require('./services.js');
 
 const {
     validateFields
@@ -15,35 +15,44 @@ const {
 
 const router = express.Router();
 
-// router.post('/', authorizeAndExtractToken, authorizeRoles('admin'), async (req, res, next) => {
-//     const {
-//         firstName,
-//         lastName
-//     } = req.body;
+router.post('/', authorizeAndExtractToken, authorizeRoles('user'), async(req, res, next) => {
+    const {
+        username,
+        product_id,
+        message
+    } = req.body;
 
-//     // validare de campuri
-//     try {
+    try {
+        await QuestionsService.post(product_id, username, message);
 
-//         const fieldsToBeValidated = {
-//             firstName: {
-//                 value: firstName,
-//                 type: 'alpha'
-//             },
-//             lastName: {
-//                 value: lastName,
-//                 type: 'alpha'
-//             }
-//         };
+        res.status(200).end();
+    } catch(err) {
+        next(err);
+    }
+});
 
-//         validateFields(fieldsToBeValidated);
+router.put('/',authorizeAndExtractToken, authorizeRoles('support'), async(req, res, next) => {
+    const id = req.body.data.id;
 
-//         await AuthorsService.add(firstName, lastName);
+    try {
+        await QuestionsService.put(id);
 
-//         res.status(201).end();
-//     } catch (err) {
-//         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
-//         next(err);
-//     }
-// });
+        res.status(204).end();
+    } catch(err) {
+        next(err);
+    }
+});
+
+router.delete('/',authorizeAndExtractToken, authorizeRoles('support'), async(req, res, next) => {
+    const id = req.body.id;
+
+    try {
+        await QuestionsService.deleteQuestion(id);
+
+        res.status(204).end();
+    } catch(err) {
+        next(err);
+    }
+});
 
 module.exports = router;

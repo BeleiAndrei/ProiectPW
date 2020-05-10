@@ -2,10 +2,25 @@ const {
     Orders,
 } = require('../../data');
 
-const example = async () => {
+const get = async () => {
+    
+};
+
+const post = async () => {
+
+};
+
+const put = async () => {
+
+};
+
+const deleteOrder = async () => {
 
 };
 
 module.exports = {
-    example,
+    get,
+    post,
+    put,
+    deleteOrder
 }

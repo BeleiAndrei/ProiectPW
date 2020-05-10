@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
-    produc_id: {
+    product_id: {
         type: Schema.Types.ObjectId,
         ref: 'Products',
         required: true
