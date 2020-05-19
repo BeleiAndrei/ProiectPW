@@ -1,6 +1,6 @@
 const express = require('express');
 
-const AuthorsService = require('./services.js');
+const OrdersSerive = require('./services.js');
 
 const {
     validateFields
@@ -21,6 +21,18 @@ router.get('/', async(req, res, next) => {
 });
 
 router.post('/', async(req, res, next) => {
+    const {
+        username,
+        status,
+        products
+    } = req.body;
+
+    try {
+        
+        res.status(201).end();
+    } catch (err) {
+        next(err);
+    }
 
 });
 

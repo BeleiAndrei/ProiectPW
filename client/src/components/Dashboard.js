@@ -397,6 +397,15 @@ export default function Dashboard() {
         return reviewsArea;
     }
 
+    function addToCart(product) {
+        if (global.cart == undefined) {
+            global.cart = [];
+        }
+
+        global.cart.push(product);
+        clearView();
+    }
+
     function viewProductModal() {
         return (
             <Modal 
@@ -412,7 +421,8 @@ export default function Dashboard() {
                         <p>{povProduct.description}</p>
                         <p>Provider: {povProduct.provider !== undefined ? povProduct.provider.name : null}</p>
                         <p>Price: {povProduct.price}</p>
-                        <p><Button style={{
+                        <p><Button onClick={e => addToCart(povProduct)}
+                        style={{
                             width:"inherit",
                             "margin-right":"0%",
                             "margin-left":"0%"

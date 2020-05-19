@@ -1,7 +1,7 @@
 .Nav {
     height: 40px;
     background-color: lightskyblue;
-    width: 100%;
+    width: 100% !important;
     span:nth-of-type(2n) {
         margin-top: 2px;
         display: inline-block;
@@ -41,6 +41,12 @@ body {
         margin-left: 3%;
         display: inline-block;
         width: 30%;
+    }
+    th, td {
+        border: 1px solid black;
+    }
+    table {
+        margin-bottom: 50px;
     }
 }
 

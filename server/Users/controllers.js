@@ -23,7 +23,7 @@ router.get('/confirm', async(req, res, next) => {
         await UsersService.confirmed(username);
 
         res.status(200);
-        res.send("Email conformed successfully").end();
+        res.send("Email confirmed successfully").end();
     } catch (err) {
         next(err);
     }
