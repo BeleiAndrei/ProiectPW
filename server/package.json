@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.3",
     "jsonwebtoken": "^8.5.1",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "mongodb": "^3.5.4",
     "mongoose": "^5.9.3",
     "morgan": "^1.9.1",
